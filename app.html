@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixIt Now - Complete App Flow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+  </style>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen font-sans">
+
+  <div id="root" class="w-full h-full flex justify-center items-center p-2"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // --- REAL IMAGES DATA ---
+    const LAPTOP_IMAGES = {
+      apple: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80",
+      dell: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=400&q=80",
+      hp: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=400&q=80",
+      lenovo: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=400&q=80",
+      repair: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=500&q=80",
+      user: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
+    };
+
+    // ==========================================
+    // 1 & 2. AUTHENTICATION (Login.jsx & Register.jsx)
+    // ==========================================
+    function AuthFlow({ onLogin }) {
+      const [view, setView] = useState('login');
+      const [role, setRole] = useState('customer');
+
+      return (
+        <div className="flex-1 flex flex-col bg-gray-50 h-full overflow-y-auto">
+          <div className="pt-12 pb-8 px-8 bg-indigo-600 text-white shadow-lg shrink-0 rounded-b-3xl">
+            <h1 className="text-3xl font-bold mb-1"><i className="fas fa-laptop-medical mr-2"></i>FixIt Now</h1>
+            <p className="text-indigo-100 text-sm">Ghar Baithe Laptop Repairing</p>
+          </div>
+
+          <div className="p-8 flex-1">
+            {view === 'login' && (
+              <div className="animate-fade-in">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Welcome Back</h2>
+                <input type="text" placeholder="Phone or Email" className="w-full p-4 mb-4 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <input type="password" placeholder="Password" className="w-full p-4 mb-6 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" />
+                
+                <p className="text-sm text-gray-500 mb-4 text-center">Login as:</p>
+                <div className="flex gap-4 mb-8">
+                  <button onClick={() => setRole('customer')} className={`flex-1 py-2 rounded-lg font-bold border-2 ${role === 'customer' ? 'border-indigo-600 text-indigo-600 bg-indigo-50' : 'border-gray-200 text-gray-400'}`}>Customer</button>
+                  <button onClick={() => setRole('technician')} className={`flex-1 py-2 rounded-lg font-bold border-2 ${role === 'technician' ? 'border-indigo-600 text-indigo-600 bg-indigo-50' : 'border-gray-200 text-gray-400'}`}>Technician</button>
+                </div>
+
+                <button onClick={() => onLogin(role)} className="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition-transform">Log In</button>
+                <p className="text-center mt-6 text-gray-600 text-sm">Don't have an account? <span onClick={() => setView('register')} className="text-indigo-600 font-bold cursor-pointer">Register</span></p>
+              </div>
+            )}
+
+            {view === 'register' && (
+              <div className="animate-fade-in">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">Create Account</h2>
+                <input type="text" placeholder="Full Name" className="w-full p-4 mb-4 bg-white border border-gray-200 rounded-xl" />
+                <input type="tel" placeholder="Phone Number" className="w-full p-4 mb-4 bg-white border border-gray-200 rounded-xl" />
+                <button onClick={() => onLogin('customer')} className="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform">Register</button>
+                <p className="text-center mt-6 text-gray-600 text-sm"><span onClick={() => setView('login')} className="text-indigo-600 font-bold cursor-pointer"><i className="fas fa-arrow-left mr-1"></i> Back to Login</span></p>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 3. CUSTOMER HOME (Home.jsx)
+    // ==========================================
+    function CustomerHome({ onSelectBrand }) {
+      const brands = [
+        { name: 'Apple MacBook', img: LAPTOP_IMAGES.apple },
+        { name: 'Dell Laptops', img: LAPTOP_IMAGES.dell },
+        { name: 'HP Series', img: LAPTOP_IMAGES.hp },
+        { name: 'Lenovo ThinkPad', img: LAPTOP_IMAGES.lenovo }
+      ];
+
+      return (
+        <div className="pb-24 pt-6 px-4">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <p className="text-gray-500 text-sm">Location</p>
+              <h2 className="text-lg font-bold text-gray-800"><i className="fas fa-map-marker-alt text-indigo-600 mr-1"></i> Arera Colony, Bhopal</h2>
+            </div>
+            <img src={LAPTOP_IMAGES.user} className="w-10 h-10 rounded-full border-2 border-indigo-600" alt="Profile" />
+          </div>
+
+          <div className="bg-indigo-600 rounded-2xl p-6 text-white mb-8 shadow-lg relative overflow-hidden">
+            <div className="relative z-10">
+              <h2 className="text-2xl font-bold mb-2">Need a Repair?</h2>
+              <p className="text-indigo-100 text-sm mb-4">Book a certified technician to your home in 60 minutes.</p>
+            </div>
+            <i className="fas fa-tools absolute -bottom-4 -right-4 text-8xl text-indigo-500 opacity-50"></i>
+          </div>
+
+          <h3 className="font-bold text-gray-800 mb-4 text-lg">Select Your Brand</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {brands.map((b, i) => (
+              <div key={i} onClick={() => onSelectBrand(b)} className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 active:scale-95 transition-transform cursor-pointer">
+                <img src={b.img} alt={b.name} className="w-full h-24 object-cover" />
+                <div className="p-3 text-center font-semibold text-sm text-gray-800">{b.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 4. CUSTOMER VIEW REPAIRING (View-Of-Repairing-home.jsx)
+    // ==========================================
+    function CustomerViewRepair({ brand, onBack }) {
+      return (
+        <div className="bg-gray-50 min-h-full pb-24 relative">
+          <div className="relative h-64">
+            <img src={brand.img} className="w-full h-full object-cover" alt="Laptop" />
+            <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent">
+              <button onClick={onBack} className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full text-white flex items-center justify-center"><i className="fas fa-arrow-left"></i></button>
+            </div>
+          </div>
+          
+          <div className="p-6 -mt-10 relative bg-gray-50 rounded-t-3xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-1">{brand.name} Repair</h2>
+            <p className="text-green-600 font-semibold text-sm mb-6"><i className="fas fa-check-circle"></i> Technicians available near you</p>
+
+            <h3 className="font-bold text-gray-800 mb-3">Select Service</h3>
+            <div className="space-y-3">
+              {['Screen Replacement', 'Battery Issue', 'OS Installation / Formatting', 'Keyboard Not Working'].map((service, i) => (
+                <div key={i} className="flex justify-between items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
+                  <div>
+                    <h4 className="font-semibold text-gray-800 text-sm">{service}</h4>
+                    <p className="text-xs text-gray-500 mt-1">Starts at ₹499</p>
+                  </div>
+                  <button className="w-8 h-8 rounded-full border border-indigo-600 text-indigo-600 flex items-center justify-center"><i className="fas fa-plus"></i></button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="absolute bottom-0 left-0 w-full p-4 glass-nav border-t border-gray-200">
+            <button onClick={onBack} className="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl shadow-lg">Book Technician Now</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 5. CUSTOMER PROFILE (Customer-Profile.jsx)
+    // ==========================================
+    function CustomerProfile({ onLogout }) {
+      return (
+        <div className="p-6 pb-24">
+          <div className="flex items-center gap-4 mb-8">
+            <img src={LAPTOP_IMAGES.user} className="w-20 h-20 rounded-full shadow-md" alt="User" />
+            <div>
+              <h2 className="text-xl font-bold text-gray-800">Mohammad Rijvan</h2>
+              <p className="text-gray-500 text-sm">+91 98765 43210</p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
+              <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center"><i className="fas fa-history"></i></div>
+              <div className="flex-1"><h4 className="font-bold text-gray-800">My Bookings</h4><p className="text-xs text-gray-500">View past & active repairs</p></div>
+              <i className="fas fa-chevron-right text-gray-300"></i>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
+              <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center"><i className="fas fa-map-marker-alt"></i></div>
+              <div className="flex-1"><h4 className="font-bold text-gray-800">Saved Addresses</h4><p className="text-xs text-gray-500">Manage your home/office locations</p></div>
+              <i className="fas fa-chevron-right text-gray-300"></i>
+            </div>
+          </div>
+
+          <button onClick={onLogout} className="w-full mt-8 border-2 border-red-100 text-red-500 font-bold py-4 rounded-xl bg-red-50"><i className="fas fa-sign-out-alt mr-2"></i> Log Out</button>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 6. TECHNICIAN DASHBOARD (Technician-Dashboard.jsx)
+    // ==========================================
+    function TechDashboard() {
+      return (
+        <div className="p-6 pb-24">
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">Hello, Tech!</h2>
+              <p className="text-sm text-gray-500">You are online <i className="fas fa-circle text-green-500 ml-1 text-xs"></i></p>
+            </div>
+            <img src={LAPTOP_IMAGES.user} className="w-12 h-12 rounded-full shadow-sm" alt="Tech" />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+              <p className="text-gray-500 text-xs font-bold uppercase mb-1">Today's Earnings</p>
+              <p className="text-2xl font-bold text-green-600">₹1,450</p>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+              <p className="text-gray-500 text-xs font-bold uppercase mb-1">Jobs Done</p>
+              <p className="text-2xl font-bold text-indigo-600">03</p>
+            </div>
+          </div>
+
+          <h3 className="font-bold text-gray-800 mb-4">Current Active Job</h3>
+          <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg relative">
+            <img src={LAPTOP_IMAGES.repair} className="w-full h-32 object-cover opacity-50" alt="Repair" />
+            <div className="absolute top-0 left-0 w-full h-full p-4 flex flex-col justify-end text-white">
+              <h4 className="font-bold text-lg">Dell Inspiron - Screen Issue</h4>
+              <p className="text-xs text-gray-300 mb-3"><i className="fas fa-map-marker-alt text-red-400 mr-1"></i> 12/A, MP Nagar (2.5 km away)</p>
+              <div className="flex gap-2">
+                <button className="flex-1 bg-indigo-600 text-white text-sm font-bold py-2 rounded-lg">Navigate</button>
+                <button className="flex-1 bg-white text-gray-900 text-sm font-bold py-2 rounded-lg">Mark Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 7. TECHNICIAN NOTIFICATION (Technician-notification.jsx)
+    // ==========================================
+    function TechNotification() {
+      return (
+        <div className="p-6 pb-24">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Job Requests <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2">2 New</span></h2>
+          
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-xl shadow-md border-l-4 border-indigo-600">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-bold text-gray-900">MacBook Air Repair</h4>
+                <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Urgent</span>
+              </div>
+              <p className="text-sm text-gray-600 mb-3"><i className="fas fa-map-marker-alt text-gray-400 w-4"></i> Awadhpuri (4 km)</p>
+              <div className="flex gap-2">
+                <button className="flex-1 bg-green-500 text-white font-bold py-2 rounded-lg text-sm">Accept</button>
+                <button className="flex-1 border border-gray-200 text-gray-600 font-bold py-2 rounded-lg text-sm">Decline</button>
+              </div>
+            </div>
+
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 opacity-75">
+              <h4 className="font-bold text-gray-900 mb-2">HP Keyboard Issue</h4>
+              <p className="text-sm text-gray-600 mb-3"><i className="fas fa-map-marker-alt text-gray-400 w-4"></i> Indrapuri (6 km)</p>
+              <div className="flex gap-2">
+                <button className="flex-1 bg-green-500 text-white font-bold py-2 rounded-lg text-sm">Accept</button>
+                <button className="flex-1 border border-gray-200 text-gray-600 font-bold py-2 rounded-lg text-sm">Decline</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // 8. TECHNICIAN PROFILE (Technician-Profile.jsx)
+    // ==========================================
+    function TechProfile({ onLogout }) {
+      return (
+        <div className="p-6 pb-24">
+          <div className="flex flex-col items-center text-center mb-8 pt-4">
+            <img src={LAPTOP_IMAGES.user} className="w-24 h-24 rounded-full shadow-lg border-4 border-white mb-3" alt="Tech" />
+            <h2 className="text-2xl font-bold text-gray-800">Rahul Technician</h2>
+            <p className="text-indigo-600 font-bold text-sm"><i className="fas fa-star text-yellow-400"></i> 4.8 / 5.0 (120 Reviews)</p>
+          </div>
+
+          <div className="space-y-3 mb-8">
+            <div className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center">
+              <span className="font-semibold text-gray-700">Total Lifetime Earnings</span>
+              <span className="font-bold text-green-600">₹ 45,800</span>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center">
+              <span className="font-semibold text-gray-700">Bank Account Details</span>
+              <i className="fas fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <button onClick={onLogout} className="w-full border-2 border-gray-200 text-gray-600 font-bold py-4 rounded-xl hover:bg-gray-50"><i className="fas fa-sign-out-alt mr-2"></i> Log Out</button>
+        </div>
+      );
+    }
+
+    // ==========================================
+    // MAIN APP ROUTER
+    // ==========================================
+    function App() {
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+      const [userRole, setUserRole] = useState(null); // 'customer' or 'technician'
+      const [currentTab, setCurrentTab] = useState('home'); // home, notif, profile
+      const [selectedBrand, setSelectedBrand] = useState(null); // For Customer View
+
+      const handleLogin = (role) => {
+        setUserRole(role);
+        setIsLoggedIn(true);
+        setCurrentTab('home');
+      };
+
+      const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUserRole(null);
+        setSelectedBrand(null);
+      };
+
+      // Bottom Navigation Component
+      const BottomNav = () => (
+        <div className="absolute bottom-0 left-0 w-full glass-nav border-t border-gray-200 flex justify-around p-3 z-50">
+          {userRole === 'customer' ? (
+            <>
+              <button onClick={() => {setCurrentTab('home'); setSelectedBrand(null);}} className={`flex flex-col items-center ${currentTab === 'home' && !selectedBrand ? 'text-indigo-600' : 'text-gray-400'}`}><i className="fas fa-home text-xl mb-1"></i><span className="text-[10px] font-bold uppercase">Home</span></button>
+              <button onClick={() => setCurrentTab('profile')} className={`flex flex-col items-center ${currentTab === 'profile' ? 'text-indigo-600' : 'text-gray-400'}`}><i className="fas fa-user text-xl mb-1"></i><span className="text-[10px] font-bold uppercase">Profile</span></button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setCurrentTab('home')} className={`flex flex-col items-center ${currentTab === 'home' ? 'text-indigo-600' : 'text-gray-400'}`}><i className="fas fa-briefcase text-xl mb-1"></i><span className="text-[10px] font-bold uppercase">Jobs</span></button>
+              <button onClick={() => setCurrentTab('notif')} className={`relative flex flex-col items-center ${currentTab === 'notif' ? 'text-indigo-600' : 'text-gray-400'}`}>
+                <i className="fas fa-bell text-xl mb-1"></i><span className="text-[10px] font-bold uppercase">Alerts</span>
+                <span className="absolute -top-1 right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+              </button>
+              <button onClick={() => setCurrentTab('profile')} className={`flex flex-col items-center ${currentTab === 'profile' ? 'text-indigo-600' : 'text-gray-400'}`}><i className="fas fa-user-cog text-xl mb-1"></i><span className="text-[10px] font-bold uppercase">Profile</span></button>
+            </>
+          )}
+        </div>
+      );
+
+      return (
+        <div className="w-full max-w-sm bg-gray-50 h-[850px] max-h-[95vh] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-8 border-gray-900 flex flex-col">
+          
+          {/* Status Bar Mock */}
+          <div className="h-6 w-full bg-transparent absolute top-0 z-50 flex justify-between px-6 pt-2 text-xs font-bold text-gray-800">
+            <span>9:41</span>
+            <div className="flex gap-1"><i className="fas fa-signal"></i><i className="fas fa-wifi"></i><i className="fas fa-battery-full"></i></div>
+          </div>
+
+          <div className="flex-1 overflow-y-auto w-full relative">
+            {!isLoggedIn ? (
+              <AuthFlow onLogin={handleLogin} />
+            ) : (
+              <>
+                {userRole === 'customer' && currentTab === 'home' && !selectedBrand && <CustomerHome onSelectBrand={setSelectedBrand} />}
+                {userRole === 'customer' && selectedBrand && <CustomerViewRepair brand={selectedBrand} onBack={() => setSelectedBrand(null)} />}
+                {userRole === 'customer' && currentTab === 'profile' && <CustomerProfile onLogout={handleLogout} />}
+                
+                {userRole === 'technician' && currentTab === 'home' && <TechDashboard />}
+                {userRole === 'technician' && currentTab === 'notif' && <TechNotification />}
+                {userRole === 'technician' && currentTab === 'profile' && <TechProfile onLogout={handleLogout} />}
+                
+                {/* Hide Nav if viewing repair details */}
+                {(!selectedBrand) && <BottomNav />}
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

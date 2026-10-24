@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="color-scheme" content="light"/>
+  <title>Ghar-Baithe-Laptop-Repair</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #EFF6FF;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #1E293B;
+    -webkit-font-smoothing: antialiased;
+  }
+  .email-wrapper {
+    max-width: 600px;
+    margin: 32px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(37,99,235,0.10);
+    border: 1px solid #DBEAFE;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #0EA5E9 100%);
+    padding: 40px 40px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 150px; height: 150px;
+    background: rgba(16,185,129,0.12);
+    border-radius: 50%;
+  }
+  .logo-wrap { position: relative; z-index: 1; }
+  .logo-icon {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 16px;
+    padding: 14px 20px;
+    font-size: 28px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(4px);
+  }
+  .logo-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .logo-name span { color: #6EE7B7; }
+  .logo-tagline {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* ── HERO BADGE ── */
+  .hero-badge-wrap {
+    background: linear-gradient(135deg, #DBEAFE, #EFF6FF);
+    padding: 28px 40px 0;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* ── BODY ── */
+  .body { padding: 32px 40px 28px; }
+  .greeting-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .greeting-name span { color: #2563EB; }
+  .intro-text {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #BFDBFE, transparent);
+    margin: 24px 0;
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap { text-align: center; margin: 28px 0; }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 44px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #ffffff !important;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+    transition: all 0.2s;
+  }
+  .cta-btn-green {
+    background: linear-gradient(135deg, #059669, #10B981) !important;
+    box-shadow: 0 8px 24px rgba(16,185,129,0.35) !important;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #2563EB;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .info-card-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #334155;
+  }
+  .info-card-row:last-child { margin-bottom: 0; }
+  .info-card-label {
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .info-card-value {
+    color: #1E293B;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* ── FEATURE GRID ── */
+  .features-grid {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+  }
+  .feature-item {
+    display: table-cell;
+    width: 33.33%;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    vertical-align: top;
+  }
+  .feature-icon { font-size: 26px; margin-bottom: 8px; }
+  .feature-title { font-size: 12px; font-weight: 700; color: #1E293B; margin-bottom: 4px; }
+  .feature-desc { font-size: 11px; color: #94A3B8; line-height: 1.4; }
+
+  /* ── STEPS ── */
+  .steps-wrap { margin: 20px 0; }
+  .step-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .step-num {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 14px;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; color: #1E293B; margin-bottom: 2px; }
+  .step-desc { font-size: 13px; color: #64748B; line-height: 1.5; }
+
+  /* ── NOTICE BOX ── */
+  .notice-box {
+    background: #FEF9C3;
+    border: 1px solid #FDE047;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #713F12;
+    line-height: 1.6;
+    margin: 20px 0;
+  }
+  .notice-box strong { color: #92400E; }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .stat-item { display: inline-block; margin: 0 18px; }
+  .stat-num { font-size: 22px; font-weight: 800; color: #2563EB; }
+  .stat-label { font-size: 11px; color: #64748B; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0F172A;
+    padding: 28px 40px;
+    text-align: center;
+  }
+  .footer-logo { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .footer-logo span { color: #34D399; }
+  .footer-tagline { font-size: 12px; color: #64748B; margin-bottom: 16px; }
+  .footer-links a {
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 0 10px;
+  }
+  .footer-links a:hover { color: #60A5FA; }
+  .footer-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 16px 0; }
+  .footer-copy { font-size: 11px; color: #475569; line-height: 1.6; }
+  .footer-copy a { color: #60A5FA; text-decoration: none; }
+
+  /* ── SOCIAL ── */
+  .social-wrap { margin: 14px 0; }
+  .social-btn {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 0 5px;
+    background: rgba(255,255,255,0.08);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="email-wrapper">
+  
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-wrap">
+      <div class="logo-icon">💻</div>
+      <div class="logo-name">Ghar-Baithe-<span>Laptop-Repair</span></div>
+      <div class="logo-tagline">Doorstep Laptop Repair Service</div>
+    </div>
+  </div>
+
+  <!-- HERO BADGE -->
+  <div class="hero-badge-wrap">
+    <div style="padding: 24px 0 20px;">
+      <div class="hero-badge" style="background: #DCFCE7; color: #166534;">
+        🎉 Account Created Successfully
+      </div>
+      <h1 class="greeting-name">Welcome, <span>Rijvan!</span></h1>
+      <p class="intro-text">
+        Your Ghar-Baithe-Laptop-Repair account is ready. Get professional laptop repair 
+        delivered right to your doorstep — no travel, no hassle.
+      </p>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- VERIFY CTA -->
+    <div class="cta-wrap">
+      <a href="http://localhost:3000/api/auth/verify-email?token=demo123" class="cta-btn">
+        ✅ &nbsp;Verify My Email Address
+      </a>
+      <p style="font-size:12px; color:#94A3B8; margin-top:12px;">
+        Link expires in <strong>7 days</strong>. One click to activate your account.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ACCOUNT INFO CARD -->
+    <div class="info-card">
+      <div style="font-size:12px; font-weight:700; color:#2563EB; text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">
+        📋 Your Account Details
+      </div>
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="info-card-label">Name</td>
+          <td class="info-card-value">Rijvan Khan</td>
+        </tr>
+        <tr><td colspan="2" style="padding:5px 0;"></td></tr>
+        <tr>
+          <td class="info-card-label">Email</td>
+          <td class="info-card-value">rijvan@example.com</td>
+        </tr>
+        <tr><td colspan="2" style="padding:5px 0;"></td></tr>
+        <tr>
+          <td class="info-card-label">Account Type</td>
+          <td class="info-card-value" style="color:#10B981;">🧑 Customer</td>
+        </tr>
+        <tr><td colspan="2" style="padding:5px 0;"></td></tr>
+        <tr>
+          <td class="info-card-label">Status</td>
+          <td class="info-card-value" style="color:#F59E0B;">⏳ Pending Verification</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">60min</div>
+        <div class="stat-label">Avg Fix Time</div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div style="margin: 24px 0;">
+      <div style="font-size:13px; font-weight:700; color:#0F172A; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:16px;">
+        🚀 How Ghar-Baithe-Laptop-Repair Works
+      </div>
+      <div class="steps-wrap">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Book Your Repair</div>
+            <div class="step-desc">Choose your issue — screen, battery, keyboard, software or anything else. Book in under 2 minutes.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Technician Arrives at Your Door</div>
+            <div class="step-desc">A verified, background-checked expert comes to your home or office at your chosen time slot.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Watch It Get Fixed</div>
+            <div class="step-desc">Most repairs done in 60 minutes. Pay only after you're 100% satisfied. 30-day service warranty included.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES ROW (table-based for email clients) -->
+    <table width="100%" cellpadding="8" cellspacing="8" style="margin: 16px 0;">
+      <tr>
+        <td width="33%" style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:18px 12px; text-align:center; vertical-align:top;">
+          <div style="font-size:26px; margin-bottom:8px;">🛡️</div>
+          <div style="font-size:12px; font-weight:700; color:#166534; margin-bottom:4px;">Verified Experts</div>
+          <div style="font-size:11px; color:#4ADE80;">Background-checked & certified technicians</div>
+        </td>
+        <td width="33%" style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px; padding:18px 12px; text-align:center; vertical-align:top;">
+          <div style="font-size:26px; margin-bottom:8px;">💰</div>
+          <div style="font-size:12px; font-weight:700; color:#1D4ED8; margin-bottom:4px;">Transparent Pricing</div>
+          <div style="font-size:11px; color:#60A5FA;">No hidden charges. Pay after service.</div>
+        </td>
+        <td width="33%" style="background:#FFF7ED; border:1px solid #FED7AA; border-radius:12px; padding:18px 12px; text-align:center; vertical-align:top;">
+          <div style="font-size:26px; margin-bottom:8px;">⚡</div>
+          <div style="font-size:12px; font-weight:700; color:#C2410C; margin-bottom:4px;">Same-Day Service</div>
+          <div style="font-size:11px; color:#FB923C;">Book now, get repaired today.</div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="divider"></div>
+
+    <!-- NOTICE -->
+    <div class="notice-box">
+      <strong>⚠️ Didn't create this account?</strong><br/>
+      If you didn't sign up on Ghar-Baithe-Laptop-Repair, please ignore this email. Your email address will not be used. 
+      Contact us at <strong>support@Ghar-Baithe-Laptop-Repair.in</strong> if you have concerns.
+    </div>
+
+    <!-- SECONDARY CTA -->
+    <div class="cta-wrap" style="margin-top: 20px;">
+      <a href="https://Ghar-Baithe-Laptop-Repair.in" class="cta-btn" style="background: linear-gradient(135deg, #0EA5E9, #0284C7); font-size:13px; padding:12px 32px;">
+        🌐 &nbsp;Explore Ghar-Baithe-Laptop-Repair
+      </a>
+    </div>
+
+  </div>
+  <div class="footer">
+    <div class="footer-logo">Ghar-Baithe-<span>Laptop-Repair</span></div>
+    <div class="footer-tagline">🔧 Doorstep Laptop Repair — Fast · Reliable · Trusted</div>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="https://Ghar-Baithe-Laptop-Repair.in">Website</a>
+      <a href="mailto:support@Ghar-Baithe-Laptop-Repair.in">Support</a>
+      <a href="https://Ghar-Baithe-Laptop-Repair.in/privacy">Privacy</a>
+      <a href="https://Ghar-Baithe-Laptop-Repair.in/terms">Terms</a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">
+      © 2026 Ghar-Baithe-Laptop-Repair. All rights reserved.<br/>
+      123, Tech Lane, Cyber City, India · <a href="mailto:support@Ghar-Baithe-Laptop-Repair.in">support@Ghar-Baithe-Laptop-Repair.in</a><br/>
+      <span style="color:#334155;font-size:10px;">You received this email because you registered on Ghar-Baithe-Laptop-Repair. 
+      <a href="https://Ghar-Baithe-Laptop-Repair.in/unsubscribe">Unsubscribe</a></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

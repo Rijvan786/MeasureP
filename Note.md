@@ -4,7 +4,8 @@ Top Compitetor
 2 Cashify.in(https://www.cashify.in/laptop-repair)  => Replacement Part and cell electronics all electronics  (not specify of Laptop Repair)
 
 
-                               *****GHAR_BAIDHE_LAPTOP_REAPARING Specific services ****** 
+                               *****GHAR_BAIDHE_LAPTOP_REAPARING Specific services ******
+                         17-08-2026       
                                 
 
 1 Analysis  Phase 
@@ -18,7 +19,7 @@ Top Compitetor
 
 (i) Scope Definition  
 
-Sabhi type  ke kam jo laptop mai hote hai like any Hardware Issue aur isme jo  technician hai vo bhi register kar sakte hai 
+Sabhi type  ka kam jo Plumbing services mai hota hai  also water pipeline in earth (and all Repair services in plumber) 
 
 so  solve that ak page  jis per client register / login karne ke bad  redirect karenga  
 
@@ -34,12 +35,13 @@ thats is karan ki  wajah se register  karenga apni webside per  technician
 
   fist Target city Buhanpur , Khargone  and Jalgoan    
 
- 
+ u
   (ii) feasibility testing  
 
   Technically is Possible and Financially bhi possible hai but dekhna padenga users ke hisab se   
 
-  (iii) cost vo dekh lenge and schedule to 2 month 
+  (iii) cost vo render for trial mode then after jump aws  and schedule to
+   2 month => authentication + confirm order customer also technician their 10-20km area cover and check notification page 
  
   (iv) Risk ko identify karna baki hai ki grow karenga ki nhi (Potential Risk ) . 
 
@@ -72,9 +74,12 @@ thats is karan ki  wajah se register  karenga apni webside per  technician
                                        3  Construction Phase
      1     actual Coding               
         Frontend and Backend Both connected With features without bugs
-        
+
+
 
 
 
 
                   
+flowfix-297 :=> 297 request in 1month
+buildblink :->179   request in month

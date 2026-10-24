@@ -87,7 +87,7 @@ export default function Home() {
               <span className="text-white/80 text-xs font-bold uppercase tracking-wider">Technicians Available Now</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-white mb-1 leading-tight">
-              Plumber  Service at Your Home 
+              Plumber  Services at Your Home 
             </h1>
             <p className="text-indigo-200 text-sm mb-5">Genuine parts · 90-day warranty · Same-day service</p>
 
